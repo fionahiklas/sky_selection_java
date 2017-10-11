@@ -1,5 +1,73 @@
 ## Overview
 
+Implementation of the Sky programming task
+
+## Getting Started
+
+### Pre-requisites
+
+* Java JDK 1.8
+* Maven 3.5.0 (or greater)
+
+
+### Compiling the code 
+
+Run the following command 
+
+```
+mvn clean test
+```
+
+All tests should pass
+
+
+### Run the application in the IDE
+
+Run the following class in your IDE
+
+```
+com.hiklas.mucking.around.rest.ProductSelectionApp
+```
+
+### Run from Maven
+
+Execute the following command to run the code via Maven
+
+```
+mvn exec:java
+```
+
+### Testing REST API With Curl
+
+Run the following command from another shell
+
+```
+curl -v -b "customerID=vimes" http://localhost:4567/products
+```
+
+This should result in the following output
+
+```
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 4567 (#0)
+> GET /products HTTP/1.1
+> Host: localhost:4567
+> User-Agent: curl/7.54.1
+> Accept: */*
+> Cookie: customerID=vimes
+> 
+< HTTP/1.1 200 OK
+< Date: Wed, 11 Oct 2017 16:52:16 GMT
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Server: Jetty(9.4.4.v20170414)
+< 
+* Connection #0 to host localhost left intact
+{"products":[{"id":"skyNews1","name":"Sky News","category":"News"},{"id":"skySportsNews1","name":"Sky Sports News","category":"News"},{"id":"arsenalTV","name":"Arsenal TV","category":"Sports"},{"id":"chelseaTV","name":"Chelsea TV","category":"Sports"}]}
+```
+
+
 
 ## Task
 
