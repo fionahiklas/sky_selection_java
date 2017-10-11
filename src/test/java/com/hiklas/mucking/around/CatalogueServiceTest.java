@@ -57,4 +57,33 @@ public class CatalogueServiceTest {
         assertThat(liverpoolProducts.size(), greaterThan( invalidLocationProducts.size() ));
     }
 
+
+    // Specific tests for the current implementation of the Catalogue service
+    // Normally wouldn't have these tests since we'd mock the DB response that the
+    // service would be using to build the results
+
+    @Test
+    public void for_invalid_location_result_length_is_two() throws Exception
+    {
+        List<Product> result = catalogueServiceToTest.productsForLocation(INVALID_LOCATION);
+        assertThat(result, notNullValue());
+        assertThat(result.size(), equalTo(2));
+    }
+
+    @Test
+    public void for_london_location_result_length_is_four() throws Exception
+    {
+        List<Product> result = catalogueServiceToTest.productsForLocation(LONDON);
+        assertThat(result, notNullValue());
+        assertThat(result.size(), equalTo(4));
+    }
+
+    @Test
+    public void for_liverpool_location_result_length_is_three() throws Exception
+    {
+        List<Product> result = catalogueServiceToTest.productsForLocation(LIVERPOOL);
+        assertThat(result, notNullValue());
+        assertThat(result.size(), equalTo(3));
+    }
+
 }
