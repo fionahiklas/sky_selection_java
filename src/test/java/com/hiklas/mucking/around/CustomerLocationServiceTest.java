@@ -6,6 +6,7 @@ import com.hiklas.mucking.around.api.LocationID;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.hamcrest.Matchers.notNullValue;
@@ -20,7 +21,10 @@ public class CustomerLocationServiceTest {
 
     public static final CustomerID KNOWN_CUSTOMER_LONDON = new CustomerID("vimes");
 
-    public static final CustomerID KNOWN_CUSTOMER_LIVEPOOL = new CustomerID("aching");
+    public static final CustomerID KNOWN_CUSTOMER_LIVERPOOL = new CustomerID("aching");
+
+    public static final LocationID LONDON = new LocationID("London");
+    public static final LocationID LIVERPOOL = new LocationID("Liverpool");
 
     private CustomerLocationAPI customerLocationServiceToTest;
 
@@ -42,6 +46,24 @@ public class CustomerLocationServiceTest {
     {
         LocationID result = customerLocationServiceToTest.locationForCustomer(UNKNOWN_CUSTOMER);
         fail();
+    }
+
+
+    // Specific tests for known users - these wouldn't exist in a real implementation,
+    // instead we'd have mocks for the database to inject query results
+
+    @Test
+    public void known_london_user_returns_london() throws Exception
+    {
+        LocationID result = customerLocationServiceToTest.locationForCustomer(KNOWN_CUSTOMER_LONDON);
+        assertThat(result, equalTo(LONDON));
+    }
+
+    @Test
+    public void known_liverpool_user_returns_liverpool() throws Exception
+    {
+        LocationID result = customerLocationServiceToTest.locationForCustomer(KNOWN_CUSTOMER_LIVERPOOL);
+        assertThat(result, equalTo(LIVERPOOL));
     }
 
 }

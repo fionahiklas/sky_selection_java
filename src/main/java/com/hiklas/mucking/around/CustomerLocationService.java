@@ -22,6 +22,7 @@ public class CustomerLocationService implements CustomerLocationAPI {
     public HashMap<CustomerID, LocationID> customerLocationMapping = new HashMap<CustomerID, LocationID>()
     {{
          put(new CustomerID("vimes"), LONDON);
+         put(new CustomerID("aching"), LIVERPOOL);
     }};
 
     @Override
