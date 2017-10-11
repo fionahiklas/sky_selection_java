@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -45,13 +46,18 @@ public class ProductSelectionServiceTest
         add(new Product("wizardNews", "Wizard News", "News", NATIONAL));
     }};
 
-    private static final List<Product> LANCRE_PRODUCTS = new ArrayList<Product>() {{
+    private static final List<Product> LANCRE_ONLY_PRODUCTS = new ArrayList<Product>() {{
 
         // National
         add(new Product("witchHour", "Witch Hour", "Witches", KNOWN_LOCATION_LANCRE));
         add(new Product("broomstickReview", "Which broomstick", "Witches", KNOWN_LOCATION_LANCRE));
     }};
 
+    private static final List<Product>  LANCRE_PRODUCTS = new ArrayList<Product>()
+    {{
+        addAll(DISCWIDE_PRODUCTS);
+        addAll(LANCRE_ONLY_PRODUCTS);
+    }};
 
     @Mock
     private CustomerLocationAPI mockCustomerLocationService;
@@ -99,6 +105,28 @@ public class ProductSelectionServiceTest
 
     }
 
+    @Test
+    public void for_known_lancre_customer_get_lancre_products() throws Exception
+    {
+        setupMockCustomerLocationService();
+        setupMockCatalogueService();
+
+        List<Product> result = productSelectionServiceToTest.availableProductsForCustomer(KNOWN_CUSTOMER_MAGRAT);
+
+        assertThat(result, equalTo(LANCRE_PRODUCTS));
+    }
+
+    @Test
+    public void for_known_xxxx_customer_get_only_discwide_products() throws Exception
+    {
+        setupMockCustomerLocationService();
+        setupMockCatalogueService();
+
+        List<Product> result = productSelectionServiceToTest.availableProductsForCustomer(KNOWN_CUSTOMER_RINCEWIND);
+
+        assertThat(result, equalTo(DISCWIDE_PRODUCTS));
+    }
+
 
     private void setupMockCustomerLocationService() throws Exception
     {
@@ -117,5 +145,8 @@ public class ProductSelectionServiceTest
     {
         when(mockCatalogueService.productsForLocation(KNOWN_LOCATION_XXXX))
                 .thenReturn(DISCWIDE_PRODUCTS);
+
+        when(mockCatalogueService.productsForLocation(KNOWN_LOCATION_LANCRE))
+                .thenReturn(LANCRE_PRODUCTS);
     }
 }
