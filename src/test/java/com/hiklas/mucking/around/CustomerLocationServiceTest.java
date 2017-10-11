@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.hamcrest.Matchers.notNullValue;
 
 /**
@@ -34,6 +35,13 @@ public class CustomerLocationServiceTest {
     {
         LocationID result = customerLocationServiceToTest.locationForCustomer(KNOWN_CUSTOMER_LONDON);
         assertThat(result, notNullValue());
+    }
+
+    @Test( expected = CustomerLocationAPI.UnknownCustomerException.class )
+    public void unknown_customer_throws_exception()
+    {
+        LocationID result = customerLocationServiceToTest.locationForCustomer(UNKNOWN_CUSTOMER);
+        fail();
     }
 
 }

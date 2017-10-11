@@ -6,6 +6,8 @@ import com.hiklas.mucking.around.api.LocationID;
 
 import java.util.HashMap;
 
+import static com.hiklas.mucking.around.api.CustomerLocationAPI.UnknownCustomerException;
+
 /**
  * Dummy implementation of the CustomerLocationAPI
  *
@@ -23,7 +25,9 @@ public class CustomerLocationService implements CustomerLocationAPI {
     }};
 
     @Override
-    public LocationID locationForCustomer(CustomerID customerId) {
-        return customerLocationMapping.get(customerId);
+    public LocationID locationForCustomer(CustomerID customerId) throws UnknownCustomerException {
+        LocationID locationId = customerLocationMapping.get(customerId);
+        if (locationId == null) throw new UnknownCustomerException();
+        return locationId;
     }
 }
