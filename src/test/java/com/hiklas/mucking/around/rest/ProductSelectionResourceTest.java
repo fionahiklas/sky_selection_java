@@ -1,10 +1,7 @@
 package com.hiklas.mucking.around.rest;
 
 
-import com.hiklas.mucking.around.api.CustomerID;
-import com.hiklas.mucking.around.api.LocationID;
-import com.hiklas.mucking.around.api.Product;
-import com.hiklas.mucking.around.api.ProductSelectionAPI;
+import com.hiklas.mucking.around.api.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,16 +59,51 @@ public class ProductSelectionResourceTest
     }
 
     @Test
-    public void result_for_known_user_is_non_null()
+    public void result_for_known_user_is_non_null() throws Exception
     {
+        setupMockProductSelectionService();
+
         JsonObject result = productSelectionResourceToTest.productListForCustomerAsJson(KNOWN_CUSTOMER_MAGRAT);
         assertThat( result, notNullValue());
     }
+
+    @Test
+    public void result_for_unknown_user_is_error_object() throws Exception
+    {
+        setupMockProductSelectionService();
+
+        JsonObject result = productSelectionResourceToTest.productListForCustomerAsJson(UNKNOWN_CUSTOMER_TEATIME);
+
+        assertThat( result, notNullValue());
+        assertThat( result.getJsonObject("error"), notNullValue());
+        assertThat( result.getJsonObject("error").getString("message"), notNullValue());
+        assertThat( result.getJsonObject("error").getString("message"),
+                equalTo(ProductSelectionResource.CUSTOMER_NOT_FOUND_ERROR));
+
+    }
+
+    @Test
+    public void result_for_known_user_array_of_products() throws Exception
+    {
+        setupMockProductSelectionService();
+
+        JsonObject result = productSelectionResourceToTest.productListForCustomerAsJson(KNOWN_CUSTOMER_MAGRAT);
+
+        assertThat( result, notNullValue());
+        assertThat( result.getJsonArray("products"), notNullValue());
+        assertThat( result.getJsonArray("products").size(), equalTo(4));
+    }
+
 
     private void setupMockProductSelectionService() throws Exception
     {
         when(mockProductSelectionService.availableProductsForCustomer(new CustomerID(KNOWN_CUSTOMER_MAGRAT)))
                 .thenReturn(PRODUCTS);
+
+        when(mockProductSelectionService.availableProductsForCustomer(new CustomerID(UNKNOWN_CUSTOMER_TEATIME)))
+                .thenThrow(new ProductSelectionAPI.CouldNotFindCustomerException());
+
+
     }
 
 }
