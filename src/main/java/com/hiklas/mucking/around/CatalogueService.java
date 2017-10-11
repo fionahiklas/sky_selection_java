@@ -4,7 +4,10 @@ import com.hiklas.mucking.around.api.CatalogueAPI;
 import com.hiklas.mucking.around.api.LocationID;
 import com.hiklas.mucking.around.api.Product;
 
-import java.util.List;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Fiona Bianchi
@@ -12,8 +15,45 @@ import java.util.List;
  */
 public class CatalogueService implements CatalogueAPI {
 
+    private static final LocationID NATIONAL = new LocationID("");
+    private static final LocationID LONDON = new LocationID("London");
+    private static final LocationID LIVERPOOL = new LocationID("Liverpool");
+
+    private static final List<Product> ALL_PRODUCTS = new ArrayList<Product>() {{
+
+        // National
+        add(new Product("skyNews1", "Sky News", "News", NATIONAL));
+        add(new Product("skySportsNews1", "Sky Sports News", "News", NATIONAL));
+
+        // London
+        add(new Product("arsenalTV", "Arsenal TV", "Sports", LONDON));
+        add(new Product("chelseaTV", "Chelsea TV", "Sports", LONDON));
+
+        // Liverpool
+        add(new Product("liverpoolTV", "Liverpool TV", "Sports", LIVERPOOL));
+    }};
+
     @Override
     public List<Product> productsForLocation(LocationID locationID) {
-        return null;
+        Stream<Product> allProductsStream = ALL_PRODUCTS.stream();
+
+        List<Product> productList =
+                allProductsStream
+                    .filter(filterForLocation())
+                    .collect(Collectors.toList());
+
+        return productList;
     }
+
+    /**
+     * The filter to use to figure out which products to return
+     *
+     * @return Predicate function to use for filtering
+     */
+    private Predicate<Product> filterForLocation()
+    {
+        return product ->  NATIONAL.equals(product.location);
+    }
+
+
 }
