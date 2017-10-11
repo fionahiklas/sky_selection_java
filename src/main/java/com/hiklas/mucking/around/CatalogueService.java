@@ -39,7 +39,7 @@ public class CatalogueService implements CatalogueAPI {
 
         List<Product> productList =
                 allProductsStream
-                    .filter(filterForLocation())
+                    .filter(filterForLocation(locationID))
                     .collect(Collectors.toList());
 
         return productList;
@@ -50,9 +50,10 @@ public class CatalogueService implements CatalogueAPI {
      *
      * @return Predicate function to use for filtering
      */
-    private Predicate<Product> filterForLocation()
+    private Predicate<Product> filterForLocation(LocationID locationId)
     {
-        return product ->  NATIONAL.equals(product.location);
+        return product ->
+                NATIONAL.equals(product.location) || product.location.equals(locationId);
     }
 
 

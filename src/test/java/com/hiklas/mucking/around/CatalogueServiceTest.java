@@ -21,7 +21,7 @@ import static org.junit.Assert.fail;
 public class CatalogueServiceTest {
 
 
-    public static final LocationID INVALID_LOCATION = new LocationID("");
+    public static final LocationID INVALID_LOCATION = new LocationID("Ankh Morpork");
     public static final LocationID LONDON = new LocationID("London");
     public static final LocationID LIVERPOOL = new LocationID("Liverpool");
 
@@ -46,6 +46,15 @@ public class CatalogueServiceTest {
         List<Product> result = catalogueServiceToTest.productsForLocation(INVALID_LOCATION);
         assertThat(result, notNullValue());
         assertThat(result.size(), greaterThan(0));
+    }
+
+    @Test
+    public void for_valid_location_result_length_greater_than_invalid() throws Exception
+    {
+        List<Product> invalidLocationProducts = catalogueServiceToTest.productsForLocation(INVALID_LOCATION);
+        List<Product> liverpoolProducts = catalogueServiceToTest.productsForLocation(LIVERPOOL);
+
+        assertThat(liverpoolProducts.size(), greaterThan( invalidLocationProducts.size() ));
     }
 
 }
