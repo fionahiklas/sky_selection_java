@@ -3,6 +3,7 @@ package com.hiklas.mucking.around.rest;
 import com.hiklas.mucking.around.CatalogueService;
 import com.hiklas.mucking.around.CustomerLocationService;
 import com.hiklas.mucking.around.ProductSelectionService;
+import spark.Spark;
 
 
 import static spark.Spark.get;
@@ -25,6 +26,9 @@ public class ProductSelectionApp {
 
         ProductSelectionResource productSelectionResource = new ProductSelectionResource();
         productSelectionResource.setProductSelectionService(productSelectionService);
+
+        // Location for HTML, CSS, JS, etc
+        Spark.staticFileLocation("/public");
 
         get("/products" , (req, res) ->
         {
