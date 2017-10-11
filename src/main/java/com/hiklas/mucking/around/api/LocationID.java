@@ -1,10 +1,12 @@
 package com.hiklas.mucking.around.api;
 
+import com.hiklas.mucking.around.entity.Entity;
+
 /**
  * @author Fiona Bianchi
  * @since 2017-10-11
  */
-public class LocationID {
+public class LocationID extends Entity<LocationID> {
     public final String id;
 
     /**
@@ -19,18 +21,8 @@ public class LocationID {
     }
 
     @Override
-    public int hashCode()
+    public String getId()
     {
-        return id.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object equalTo)
-    {
-        if (equalTo instanceof LocationID)
-        {
-            return id.equals( ((LocationID)equalTo).id );
-        }
-        return false;
+        return id;
     }
 }

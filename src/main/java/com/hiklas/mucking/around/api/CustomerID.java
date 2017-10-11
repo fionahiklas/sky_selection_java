@@ -1,10 +1,13 @@
 package com.hiklas.mucking.around.api;
 
+import com.hiklas.mucking.around.entity.Entity;
+
 /**
  * @author Fiona Bianchi
  * @since 2017-10-11
  */
-public class CustomerID {
+public class CustomerID extends Entity<CustomerID> {
+
     public final String id;
 
     /**
@@ -19,18 +22,9 @@ public class CustomerID {
     }
 
     @Override
-    public int hashCode()
+    public String getId()
     {
-        return id.hashCode();
+        return id;
     }
 
-    @Override
-    public boolean equals(Object equalTo)
-    {
-        if (equalTo instanceof CustomerID)
-        {
-            return id.equals( ((CustomerID)equalTo).id );
-        }
-        return false;
-    }
 }
