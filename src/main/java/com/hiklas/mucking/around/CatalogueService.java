@@ -15,7 +15,9 @@ import java.util.stream.Stream;
  */
 public class CatalogueService implements CatalogueAPI {
 
-    private static final LocationID NATIONAL = new LocationID("");
+    // TODO: Maybe move to a constants class
+    public static final LocationID NATIONAL = new LocationID("");
+
     private static final LocationID LONDON = new LocationID("London");
     private static final LocationID LIVERPOOL = new LocationID("Liverpool");
 
