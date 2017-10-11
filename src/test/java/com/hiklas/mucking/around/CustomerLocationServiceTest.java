@@ -31,14 +31,14 @@ public class CustomerLocationServiceTest {
     }
 
     @Test
-    public void known_customer_returns_non_null()
+    public void known_customer_returns_non_null() throws Exception
     {
         LocationID result = customerLocationServiceToTest.locationForCustomer(KNOWN_CUSTOMER_LONDON);
         assertThat(result, notNullValue());
     }
 
     @Test( expected = CustomerLocationAPI.UnknownCustomerException.class )
-    public void unknown_customer_throws_exception()
+    public void unknown_customer_throws_exception() throws Exception
     {
         LocationID result = customerLocationServiceToTest.locationForCustomer(UNKNOWN_CUSTOMER);
         fail();
