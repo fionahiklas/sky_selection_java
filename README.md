@@ -37,6 +37,23 @@ Execute the following command to run the code via Maven
 mvn exec:java
 ```
 
+### Run front end tests
+
+***NOTE: Make sure that you have built the code (using maven), this also copies the static content files to target/classes/public***
+
+Run the following commands
+
+```
+mvn clean install  # This is to make sure the resources are available 
+mvn exec:java      # Run's the application 
+```
+
+The front-end unit tests can then be accessed in a browser using the following URL
+
+```
+http://localhost:4567/qunit/skyselection_test.html
+```
+
 ### Testing REST API With Curl
 
 Run the following command from another shell
