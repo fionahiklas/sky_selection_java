@@ -2,11 +2,11 @@
 <head>
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="skyselection.css"/>
+    <link rel="stylesheet" href="/css/skyselection.css"/>
 
     <script src="/js/jquery-3.2.1.js"></script>
     <script src="/js/handlebars-v4.0.10.js"></script>
-    <script src="/ja/skyselection.js"></script>
+    <script src="/js/skyselection.js"></script>
 
     <title>Product Selection</title>
 </head>
@@ -14,7 +14,7 @@
 <h1>Product Selection</h1>
 
 <div id="customerID">
-    <form onsubmit="return customerIDFormSubmit();">
+    <form onsubmit="customerIDFormSubmit(event)">
         <label>Customer ID</label>
         <input type="text" size="10"/>
         <button type="submit">Submit</button>

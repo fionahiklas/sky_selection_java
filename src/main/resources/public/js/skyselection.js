@@ -6,5 +6,8 @@ function customerIDFormSubmit()
     // Temp
     alert("customerIDFormSubmit");
 
+    event.preventDefault();
+
+    alert("After prevent");
     return false;
 }
