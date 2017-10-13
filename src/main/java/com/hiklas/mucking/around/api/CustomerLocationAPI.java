@@ -14,6 +14,7 @@ public interface CustomerLocationAPI {
      * @param customerId
      * @return LocationID for the given customer
      * @throws UnknownCustomerException if customer isn't recognised
+     * @throws IllegalArgumentException if the customerID is null
      */
     LocationID locationForCustomer(CustomerID customerId) throws UnknownCustomerException;
 }

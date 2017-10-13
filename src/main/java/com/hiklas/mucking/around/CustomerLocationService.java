@@ -27,6 +27,9 @@ public class CustomerLocationService implements CustomerLocationAPI {
 
     @Override
     public LocationID locationForCustomer(CustomerID customerId) throws UnknownCustomerException {
+        if ( customerId == null )
+            throw new IllegalArgumentException();
+
         LocationID locationId = customerLocationMapping.get(customerId);
         if (locationId == null) throw new UnknownCustomerException();
         return locationId;

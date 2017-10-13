@@ -11,13 +11,16 @@ public class CustomerID extends Entity<CustomerID> {
     public final String id;
 
     /**
-     * TODO: Need to protect against null ID, otherwise hashCode and
-     * TODO: equals methods will break
+     * Create a new CustomerID from a StringID
      *
      * @param id
+     * @throws IllegalArgumentException if the id is null or empty
      */
     public CustomerID(String id)
     {
+        if( id == null || "".equals(id) )
+            throw new IllegalArgumentException();
+
         this.id = id;
     }
 
