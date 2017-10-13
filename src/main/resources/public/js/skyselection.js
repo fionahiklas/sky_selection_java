@@ -1,13 +1,7 @@
 /**
  * Handle submit of the customerID form/input field
  */
-function customerIDFormSubmit()
+function clickCustomerButton()
 {
-    // Temp
-    alert("customerIDFormSubmit");
-
-    event.preventDefault();
-
-    alert("After prevent");
-    return false;
+    alert("Button click");
 }
