@@ -8,8 +8,6 @@ import com.hiklas.mucking.around.entity.Entity;
  */
 public class CustomerID extends Entity<CustomerID> {
 
-    public final String id;
-
     /**
      * Create a new CustomerID from a StringID
      *
@@ -18,16 +16,7 @@ public class CustomerID extends Entity<CustomerID> {
      */
     public CustomerID(String id)
     {
-        if( id == null || "".equals(id) )
-            throw new IllegalArgumentException();
-
-        this.id = id;
-    }
-
-    @Override
-    public String getId()
-    {
-        return id;
+        super(id);
     }
 
 }

@@ -69,6 +69,21 @@ public class CustomerLocationServiceTest {
         fail();
     }
 
+    @Test( expected = IllegalArgumentException.class )
+    public void trying_to_create_a_new_location_with_null_results_in_exception()
+    {
+        LocationID result = new LocationID(null);
+        fail();
+    }
+
+    @Test( expected = IllegalArgumentException.class )
+    public void trying_to_create_a_new_location_with_empty_string_results_in_exception()
+    {
+        LocationID result = new LocationID("");
+        fail();
+    }
+
+
     // Specific tests for known users - these wouldn't exist in a real implementation,
     // instead we'd have mocks for the database to inject query results
 

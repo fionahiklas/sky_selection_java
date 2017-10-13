@@ -8,22 +8,27 @@ import com.hiklas.mucking.around.entity.Entity;
  */
 public class Product extends Entity<Product> {
 
-    public final String id;
     public final String category;
     public final String name;
     public final LocationID location;
 
+    /**
+     * TODO: Need to think about handling null/empty for name, category, location
+     *
+     * Create a new Product object
+     *
+     * @param id
+     * @param name
+     * @param category
+     * @param location
+     * @throws IllegalArgumentException if the ID is null or empty
+     */
     public Product(String id, String name, String category, LocationID location)
     {
-        this.id = id;
+        super(id);
         this.name = name;
         this.category = category;
         this.location = location;
     }
 
-    @Override
-    public String getId()
-    {
-        return id;
-    }
 }

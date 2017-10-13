@@ -7,22 +7,17 @@ import com.hiklas.mucking.around.entity.Entity;
  * @since 2017-10-11
  */
 public class LocationID extends Entity<LocationID> {
-    public final String id;
 
     /**
-     * TODO: Need to protect against null ID, otherwise hashCode and
-     * TODO: equals methods will break
+     * Create a new LocationID object from a StringID
      *
      * @param id
+     * @throws IllegalArgumentException if the id is null or empty
      */
     public LocationID(String id)
     {
-        this.id = id;
+        super(id);
     }
 
-    @Override
-    public String getId()
-    {
-        return id;
-    }
+
 }

@@ -6,6 +6,22 @@ package com.hiklas.mucking.around.entity;
  */
 public abstract class Entity<T extends EntityId> implements EntityMixin<T> {
 
+    public final String id;
+
+    public Entity(String id)
+    {
+        if( id == null || "".equals(id) )
+            throw new IllegalArgumentException();
+
+        this.id = id;
+    }
+
+    @Override
+    public String getId()
+    {
+        return id;
+    }
+
     @Override
     public int hashCode()
     {

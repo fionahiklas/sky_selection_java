@@ -127,6 +127,17 @@ public class ProductSelectionServiceTest
         assertThat(result, equalTo(DISCWIDE_PRODUCTS));
     }
 
+    @Test( expected = IllegalArgumentException.class )
+    public void creating_product_with_null_id_throws_and_exception()
+    {
+        Product result = new Product(null, null, null, null);
+    }
+
+    @Test( expected = IllegalArgumentException.class )
+    public void creating_product_with_empty_id_throws_and_exception()
+    {
+        Product result = new Product("", null, null, null);
+    }
 
     private void setupMockCustomerLocationService() throws Exception
     {
