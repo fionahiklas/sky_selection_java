@@ -13,9 +13,60 @@
     <script src="/js/skyselection.js"></script>
 
     <script>
+        testProductList = [
+            { id: "wibble1", name: "Blop1", category: "gibber", location: "UK" },
+            { id: "wibble2", name: "Blop2", category: "grunt", location: "UK" },
+            { id: "wibble3", name: "Blop3", category: "wibble", location: "UK" },
+            { id: "wibble4", name: "Blop4", category: "wibble", location: "UK" },
+            { id: "wibble5", name: "Blop5", category: "gibber", location: "UK" }
+
+        ];
+
+        // Stop anyone changing the test product list
+        Object.freeze(testProductList);
 
         QUnit.test("Sanity check test", function(assert){
-            assert.ok(true == true, "Check for tautology");
+            assert.ok(true, "Check for tautology");
+        });
+
+        QUnit.test("Convert function doesn't return null", function(assert){
+            result = convertProductListToCategoryHash(testProductList);
+            assert.ok ( result!= null , "Check for null return value");
+        });
+
+        QUnit.test("Convert function returns empty object for empty input", function(assert){
+            result = convertProductListToCategoryHash([]);
+            assert.ok ( result!= null , "Check for null return value");
+            assert.ok ( Object.keys(result) == 0 , "Check for empty hash");
+        });
+
+        QUnit.test("Convert function returns empty object for null", function(assert){
+            result = convertProductListToCategoryHash(null);
+            assert.ok ( result!= null , "Check for null return value");
+            assert.ok ( Object.keys(result) == 0 , "Check for empty hash");
+        });
+
+        QUnit.test("Convert function categories include the expected values", function(assert){
+            result = convertProductListToCategoryHash(testProductList);
+            assert.ok ( result["gibber"] != null, "Check for gibber category");
+            assert.ok ( result["grunt"] != null, "Check for grunt category");
+            assert.ok ( result["wibble"] != null, "Check for wibble category");
+        });
+
+        QUnit.test("Convert function categories contain correct number of products", function(assert){
+            result = convertProductListToCategoryHash(testProductList);
+            assert.ok ( Object.keys(result["gibber"]).length == 2, "Check for gibber category");
+            assert.ok ( Object.keys(result["grunt"]).length == 1, "Check for grunt category");
+            assert.ok ( Object.keys(result["wibble"]).length == 2, "Check for wibble category");
+        });
+
+        QUnit.test("Convert function category contains product", function(assert){
+            result = convertProductListToCategoryHash(testProductList);
+            product = result["wibble"]["wibble3"];
+            assert.ok ( product["id"] == "wibble3", "Check for product id");
+            assert.ok ( product["name"] == "Blop3", "Check for product name");
+            assert.ok ( product["category"] == "wibble", "Check for categort");
+            assert.ok ( product["location"] == "UK", "Check for location");
         });
 
     </script>
