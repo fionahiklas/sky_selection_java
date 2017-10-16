@@ -73,7 +73,14 @@ function addProductToCategories(product, categories)
     categoryHash[productId] = product;
 }
 
-
+/**
+ * Need to make an object that is useful for Handlbars
+ *
+ * TODO: Maybe move this into the convertProductListToCategoryHash
+ *
+ * @param categories
+ * @returns {{categories: *}}
+ */
 function categoriesOfCategories( categories )
 {
     return { categories: categories };

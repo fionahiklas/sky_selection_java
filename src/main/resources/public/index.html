@@ -5,8 +5,12 @@
     <link rel="stylesheet" href="/css/skyselection.css"/>
 
     <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/js-cookie.js"></script>
     <script src="/js/handlebars-v4.0.10.js"></script>
+
+    <script src="/js/requiretemplate.js"></script>
     <script src="/js/skyselection.js"></script>
+    <script src="/js/skyactions.js"></script>
 
     <title>Product Selection</title>
 </head>
@@ -15,8 +19,8 @@
 
 <div id="customerID">
         <label>Customer ID</label>
-        <input type="text" size="10"/>
-        <button type="button" onclick="clickCustomerButton()">Submit</button>
+        <input id="customerIDinput" type="text" size="10"/>
+        <button type="button" onclick="customerButtonClicked()">Submit</button>
 </div>
 
 <div id="availableProducts">
