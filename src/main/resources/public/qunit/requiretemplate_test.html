@@ -1,0 +1,128 @@
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>Sky Selection Tests</title>
+
+    <link rel="stylesheet" href="qunit-2.4.0.css"/>
+    <script src="qunit-2.4.0.js"></script>
+
+    <script src="/js/jquery-3.2.1.js"></script>
+
+    <script src="/js/handlebars-v4.0.10.js"></script>
+    <script src="/js/requiretemplate.js"></script>
+
+    <script>
+
+        // Ordering of tests matters since we build things up
+        QUnit.config.reorder = false;
+
+        // TODO: This was added for paranoia sake because of weirdness of compiling to window
+        // TODO: Turns out that ordering of QUnit tests isn't guarenteed.
+        // TODO: Setting the option above seems to have fixed everything, this test is maybe
+        // TODO: redundant now
+        QUnit.test("Check that properties can be set on the window object", function(assert){
+            assert.ok(window.flibble_blip == null, "Currently not set to anything");
+
+            window.flibble_blip = "Bibbedy bobbedy boo";
+
+            assert.equal(window.flibble_blip, "Bibbedy bobbedy boo", "Should be the same");
+        });
+
+
+        QUnit.test("Check that template name is calculated correctly", function(assert){
+            var templateName = templateScriptName('raddish');
+
+            assert.equal(templateName, 'template_raddish', "The template name is calculated correctly");
+        });
+
+        QUnit.test("Check that template query string is calculated correctly", function(assert){
+            var templateName = templateScriptSearchID('cabbage');
+
+            assert.equal(templateName, '#template_cabbage', "The template query is calculated correctly");
+        });
+
+        QUnit.test("Check that require-template loads template", function(assert) {
+            var templateBefore = $(templateScriptSearchID('test_template'));
+            assert.equal(templateBefore.length, 0, "No template should be loaded yet");
+
+            // Load the template in
+            require_template('test_template', '/qunit/templates');
+
+            var templateAfter = $(templateScriptSearchID('test_template'));
+            assert.ok(templateAfter, "Template should be loaded");
+            console.log("Template: " + templateAfter + "\nTemplate size: " + templateAfter.length);
+
+
+            var templateText = templateAfter.html();
+            console.log('Got template text: ' + templateText);
+            assert.ok(templateText.length > 0, "The template is non-zero length");
+        });
+
+        // Used for a test below
+        var globalCompileOutput = undefined;
+
+        QUnit.test("Check that compile template works", function(assert) {
+            var compileOutput = undefined;
+
+            assert.ok(compileOutput == undefined, "Before compile, the output variable is undefined");
+
+            compileOutput = compileTemplate("test_template");
+            globalCompileOutput = compileOutput;
+
+            window.testCompiledTemplate = compileOutput;
+
+            assert.ok(compileOutput, "Is the compile output defined");
+            assert.ok(compileOutput.length > 0, "Is the compile output valid");
+
+            console.log("Compile output: " + compileOutput);
+        });
+
+        QUnit.test("Render template works from global variable", function(assert) {
+            var title_object = {
+                test_title: "The Discworld"
+            };
+
+            var targetContentBefore = $('#templateTestTargetGlobal').html();
+            assert.ok(targetContentBefore.length == 0, "Should be nothing in output before");
+
+            renderTemplate(globalCompileOutput, title_object, 'templateTestTargetGlobal');
+
+            var targetContentAfter = $('#templateTestTargetGlobal').html();
+            console.log("Content: "+targetContentAfter);
+
+            assert.ok(targetContentAfter.length > 0, "Should be some template output");
+            assert.ok(targetContentAfter == "<h1>The Discworld</h1>The Discworld", "Template output should match expected");
+        });
+
+        QUnit.test("Render template works from window", function(assert) {
+            var title_object = {
+                test_title: "The Discworld"
+            };
+
+            var targetContentBefore = $('#templateTestTargetWindow').html();
+            assert.ok(targetContentBefore.length == 0, "Should be nothing in output before");
+
+            renderTemplate(window.testCompiledTemplate, title_object, 'templateTestTargetWindow');
+
+            var targetContentAfter = $('#templateTestTargetWindow').html();
+            console.log("Content: "+targetContentAfter);
+
+            assert.ok(targetContentAfter.length > 0, "Should be some template output");
+            assert.ok(targetContentAfter == "<h1>The Discworld</h1>The Discworld", "Template output should match expected");
+        });
+
+    </script>
+</head>
+
+<body>
+<h1>Top Level Template Test</h1>
+
+<div id="qunit"></div>
+
+<!-- Used to output templates -->
+<div id="templateTestTargetGlobal"></div>
+<div id="templateTestTargetWindow"></div>
+
+</body>
+</html>

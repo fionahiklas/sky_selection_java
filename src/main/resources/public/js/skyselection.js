@@ -11,6 +11,23 @@ function clickCustomerButton()
  * for category and a hash of products (by ID)
  * under those.
  *
+ * The output will be something like this
+ *
+ *  {
+ *    category1:
+ *      {
+ *         wibble1: { id: "wibble1", name: "Wibble1", category: "category1", location: "UK" },
+ *         wibble2: { id: "wibble2", name: "Wibble2", category: "category1", location: "UK" }
+ *      }
+ *
+ *    category2:
+ *      {
+ *         grunt1: { id: "grunt1", name: "Wibble1", category: "category2", location: "UK" },
+ *         grunt2: { id: "grunt2", name: "Wibble2", category: "category2", location: "UK" }
+ *      }
+ *
+ *  }
+ *
  * TODO: This doesn't do any sorting, it would be better if it
  * TODO: did.  Also it might be even better if this was all
  * TODO: done on the server instead of here
@@ -32,7 +49,14 @@ function convertProductListToCategoryHash(productList)
     return categories;
 }
 
-
+/**
+ * Add the product object to the categories hash.
+ * Needs to create a hash for the products category if
+ * one doesn't exist.
+ *
+ * @param product
+ * @param categories
+ */
 function addProductToCategories(product, categories)
 {
     productId = product.id;
