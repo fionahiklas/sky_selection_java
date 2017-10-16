@@ -72,3 +72,9 @@ function addProductToCategories(product, categories)
 
     categoryHash[productId] = product;
 }
+
+
+function categoriesOfCategories( categories )
+{
+    return { categories: categories };
+}

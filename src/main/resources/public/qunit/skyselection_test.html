@@ -69,6 +69,21 @@
             assert.ok ( product["location"] == "UK", "Check for location");
         });
 
+        QUnit.test("Convert a hash of categories to object with categories attribute", function(assert){
+            categoriesHash = {
+                category1: "Meow",
+                category2: "Woof"
+            };
+
+            result = categoriesOfCategories(categoriesHash);
+
+            assert.ok ( result!=null, "Not null");
+            assert.ok ( result["categories"] != null, "Categories not null");
+            assert.ok ( result["categories"]["category1"] == "Meow", "Categories meow");
+            assert.ok ( result["categories"]["category2"] == "Woof", "Categories woof");
+        });
+
+
     </script>
 </head>
 
