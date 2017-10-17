@@ -94,10 +94,11 @@ function customerButtonClicked()
  * Called when a product check box is clicked
  *
  * @param productId
+ * @param categoryId
  */
-function availableProductClicked(productId)
+function availableProductClicked(productId, categoryId)
 {
-   console.log("Available product clicked: " + productId);
+   console.log("Available product clicked: " + productId + " in category: " + categoryId);
 }
 
 /**

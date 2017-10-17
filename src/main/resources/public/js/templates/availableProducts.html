@@ -3,14 +3,14 @@
     {{#each categories}}
     <div class="category">
         <div class="name">
-            <input type="checkbox">
+            <input type="checkbox" id="{{id}}">
             <label>{{ name }}</label>
         </div>
 
         <ul class="product">
         {{#each products}}
             <li class="name">
-                <input type="checkbox" id="{{id}}" onclick="availableProductClicked( '{{id}}')">
+                <input type="checkbox" id="{{id}}" onclick="availableProductClicked( '{{id}}', '{{../id}}')">
                 <label>{{ name }}</label>
             </li>
         {{/each}}

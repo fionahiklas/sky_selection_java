@@ -70,18 +70,22 @@ function convertProductListToCategoryHash(productList)
 function addProductToCategories(product, categories)
 {
     var productId = product.id;
-    var productCategory = product.category;
+    var productCategoryName = product.category;
 
-    var categoryObject = categories[productCategory];
+    // TODO: Really we need a category name from the server, this is just a hack
+    var productCategoryId = productCategoryName.replace(' ', '-');
+
+    var categoryObject = categories[productCategoryId];
 
     if( categoryObject == null )
     {
         categoryObject = {
-            name: productCategory,
+            id: productCategoryId,
+            name: productCategoryName,
             products: {}
         };
 
-        categories[productCategory] = categoryObject;
+        categories[productCategoryId] = categoryObject;
     }
 
     categoryObject.products[productId] = product;

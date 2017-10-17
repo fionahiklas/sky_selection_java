@@ -15,7 +15,7 @@
     <script>
         var testProductList = [
             { id: "wibble1", name: "Blop1", category: "gibber", location: "UK" },
-            { id: "wibble2", name: "Blop2", category: "grunt", location: "UK" },
+            { id: "wibble2", name: "Blop2", category: "grunt news", location: "UK" },
             { id: "wibble3", name: "Blop3", category: "wibble", location: "UK" },
             { id: "wibble4", name: "Blop4", category: "wibble", location: "UK" },
             { id: "wibble5", name: "Blop5", category: "gibber", location: "UK" }
@@ -52,7 +52,7 @@
             var result = convertProductListToCategoryHash(testProductList);
             var categories = result.categories;
             assert.ok ( categories["gibber"] != null, "Check for gibber category");
-            assert.ok ( categories["grunt"] != null, "Check for grunt category");
+            assert.ok ( categories["grunt-news"] != null, "Check for grunt category");
             assert.ok ( categories["wibble"] != null, "Check for wibble category");
         });
 
@@ -60,7 +60,7 @@
             var result = convertProductListToCategoryHash(testProductList);
             var categories = result.categories;
             assert.ok ( Object.keys(categories["gibber"].products).length == 2, "Check for gibber category");
-            assert.ok ( Object.keys(categories["grunt"].products).length == 1, "Check for grunt category");
+            assert.ok ( Object.keys(categories["grunt-news"].products).length == 1, "Check for grunt category");
             assert.ok ( Object.keys(categories["wibble"].products).length == 2, "Check for wibble category");
         });
 
@@ -68,8 +68,16 @@
             var result = convertProductListToCategoryHash(testProductList);
             var categories = result.categories;
             assert.ok ( categories["gibber"].name == "gibber", "Check for gibber category");
-            assert.ok ( categories["grunt"].name == "grunt", "Check for grunt category");
+            assert.ok ( categories["grunt-news"].name == "grunt news", "Check for grunt category name");
             assert.ok ( categories["wibble"].name == "wibble", "Check for wibble category");
+        });
+
+        QUnit.test("Convert function categories contain category id", function(assert){
+            var result = convertProductListToCategoryHash(testProductList);
+            var categories = result.categories;
+            assert.ok ( categories["gibber"].id == "gibber", "Check for gibber category");
+            assert.ok ( categories["grunt-news"].id == "grunt-news", "Check for grunt category");
+            assert.ok ( categories["wibble"].id == "wibble", "Check for wibble category");
         });
 
         QUnit.test("Convert function category contains product", function(assert){
