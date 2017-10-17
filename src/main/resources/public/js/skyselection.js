@@ -14,16 +14,26 @@ function clickCustomerButton()
  * The output will be something like this
  *
  *  {
- *    category1:
+ *    categories:
+ *    {
+ *      category1:
  *      {
- *         wibble1: { id: "wibble1", name: "Wibble1", category: "category1", location: "UK" },
- *         wibble2: { id: "wibble2", name: "Wibble2", category: "category1", location: "UK" }
+ *         name: "category1",
+ *         products:
+ *         {
+ *           wibble1: { id: "wibble1", name: "Wibble1", category: "category1", location: "UK" },
+ *           wibble2: { id: "wibble2", name: "Wibble2", category: "category1", location: "UK" }
+ *         }
  *      }
  *
- *    category2:
+ *      category2:
  *      {
- *         grunt1: { id: "grunt1", name: "Wibble1", category: "category2", location: "UK" },
- *         grunt2: { id: "grunt2", name: "Wibble2", category: "category2", location: "UK" }
+ *         name: "catageory2",
+ *         products:
+ *         {
+ *           grunt1: { id: "grunt1", name: "Wibble1", category: "category2", location: "UK" },
+ *           grunt2: { id: "grunt2", name: "Wibble2", category: "category2", location: "UK" }
+ *         }
  *      }
  *
  *  }
@@ -35,53 +45,44 @@ function clickCustomerButton()
  */
 function convertProductListToCategoryHash(productList)
 {
-    categories = {};
+    var result = { categories: {} };
+    var categories = result.categories;
 
     if (productList != null && productList.length != 0)
     {
-        for(index=0; index<productList.length; index++)
+        for(var index=0; index<productList.length; index++)
         {
-            product = productList[index];
+            var product = productList[index];
             addProductToCategories(product, categories);
         }
     }
 
-    return categories;
+    return result;
 }
 
 /**
  * Add the product object to the categories hash.
- * Needs to create a hash for the products category if
- * one doesn't exist.
+ * If the category doesn't exist a hash for it needs to be created
  *
  * @param product
  * @param categories
  */
 function addProductToCategories(product, categories)
 {
-    productId = product.id;
-    category = product.category;
+    var productId = product.id;
+    var productCategory = product.category;
 
-    categoryHash = categories[category];
+    var categoryObject = categories[productCategory];
 
-    if( categoryHash == null )
+    if( categoryObject == null )
     {
-        categoryHash = {};
-        categories[category] = categoryHash;
+        categoryObject = {
+            name: productCategory,
+            products: {}
+        };
+
+        categories[productCategory] = categoryObject;
     }
 
-    categoryHash[productId] = product;
-}
-
-/**
- * Need to make an object that is useful for Handlbars
- *
- * TODO: Maybe move this into the convertProductListToCategoryHash
- *
- * @param categories
- * @returns {{categories: *}}
- */
-function categoriesOfCategories( categories )
-{
-    return { categories: categories };
+    categoryObject.products[productId] = product;
 }
