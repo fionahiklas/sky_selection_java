@@ -51,7 +51,7 @@ mvn exec:java      # Run's the application
 The front-end unit tests can then be accessed in a browser using the following URL
 
 ```
-http://localhost:4567/qunit/skyselection_test.html
+http://localhost:4567/qunit/index.html
 ```
 
 ### Testing REST API With Curl

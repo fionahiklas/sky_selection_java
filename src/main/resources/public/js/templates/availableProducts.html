@@ -2,11 +2,17 @@
 
     {{#each categories}}
     <div class="category">
-        <h3>{{name}}</h3>
+        <div class="name">
+            <input type="checkbox">
+            <label>{{ name }}</label>
+        </div>
 
-        <ul>
+        <ul class="product">
         {{#each products}}
-           <li><h4>{{ name }}</h4></li>
+            <li class="name">
+                <input type="checkbox" id="{{id}}" onclick="availableProductClicked( '{{id}}')">
+                <label>{{ name }}</label>
+            </li>
         {{/each}}
         </ul>
     </div>

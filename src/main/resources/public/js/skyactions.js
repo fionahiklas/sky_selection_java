@@ -90,6 +90,15 @@ function customerButtonClicked()
     });
 }
 
+/**
+ * Called when a product check box is clicked
+ *
+ * @param productId
+ */
+function availableProductClicked(productId)
+{
+   console.log("Available product clicked: " + productId);
+}
 
 /**
  * Needed to load the templates and parse them
