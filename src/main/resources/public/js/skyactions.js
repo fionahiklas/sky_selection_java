@@ -120,7 +120,22 @@ function availableProductClicked(productId, categoryId)
 {
    console.log("Available product clicked: " + productId + " in category: " + categoryId);
 
-   addProductToShoppingBasket(categoryId, productId);
+   var checkboxElement = $('#' + productId);
+   var checkBoxState = checkboxElement.prop('selected');
+
+   if (checkBoxState == 'yes' )
+   {
+       console.log("Removing from shopping basket: " + productId);
+       removeProductFromShoppingBasket(categoryId, productId);
+       checkboxElement.prop('selected', 'no');
+   }
+   else
+   {
+       console.log("Adding to shopping basket: " + productId);
+       addProductToShoppingBasket(categoryId, productId);
+       checkboxElement.prop('selected', 'yes');
+   }
+
    renderShoppingBasket(getCurrentShoppingBasket());
 }
 

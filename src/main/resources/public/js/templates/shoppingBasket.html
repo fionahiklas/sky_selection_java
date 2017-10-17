@@ -2,13 +2,7 @@
     <ul class="products">
         {{#each products}}
         <li>
-            <span class="category">
-                <div class="name">{{categoryName}}</div>
-            </span>
-            <span class="separator"> : </span>
-            <span class="product">
-                <div class="name">{{productName}}</div>
-            </span>
+            <span class="category">{{categoryName}}</span>:<span class="product">{{productName}}</span>
         </li>
         {{/each}}
     </ul>

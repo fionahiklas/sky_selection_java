@@ -76,3 +76,21 @@ function addProductToShoppingBasket(categoryId, productId)
 }
 
 
+/**
+ * Remove a previously added product from the shopping basket
+ *
+ * TODO: Currently doesn't check that the product exists
+ * TODO: We don't really need the category ID
+ *
+ * @param categoryId
+ * @param productId
+ */
+function removeProductFromShoppingBasket(categoryId, productId)
+{
+    var shoppingBasket = getCurrentShoppingBasket();
+    var products = shoppingBasket.products;
+
+    delete products[productId];
+}
+
+

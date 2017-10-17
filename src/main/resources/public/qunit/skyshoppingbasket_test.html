@@ -83,6 +83,21 @@
             assert.ok( product.categoryName == "Category 5", "Check category name" );
         });
 
+        QUnit.test("Remove item from the shopping basket and check names", function(assert){
+            createEmptyShoppingBasket();
+
+            setCurrentAvailableProducts(testAvailableProducts);
+
+            addProductToShoppingBasket("cat5", "ethernet1");
+            removeProductFromShoppingBasket("cat5", "ethernet1");
+
+            var result = getCurrentShoppingBasket();
+            var product = result.products["ethernet1"];
+
+            assert.ok( product == null, "Check product does not exist in shopping basket" );
+        });
+
+
     </script>
 </head>
 
