@@ -1,10 +1,3 @@
-/**
- * Handle submit of the customerID form/input field
- */
-function clickCustomerButton()
-{
-    alert("Button click");
-}
 
 /**
  * Convert a list of products into an object with keys
@@ -90,3 +83,4 @@ function addProductToCategories(product, categories)
 
     categoryObject.products[productId] = product;
 }
+

@@ -1,0 +1,15 @@
+<div class="shoppingList">
+    <ul class="products">
+        {{#each products}}
+        <li>
+            <span class="category">
+                <div class="name">{{categoryName}}</div>
+            </span>
+            <span class="separator"> : </span>
+            <span class="product">
+                <div class="name">{{productName}}</div>
+            </span>
+        </li>
+        {{/each}}
+    </ul>
+</div>

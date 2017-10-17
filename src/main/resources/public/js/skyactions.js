@@ -52,25 +52,45 @@ function getProductsUrl()
 function loadAllTemplates()
 {
     require_template("availableProducts", templateBaseUrl());
+    require_template("shoppingBasket", templateBaseUrl());
     window.availableProductsTemplate = compileTemplate("availableProducts");
+    window.shoppingBasketTemplate = compileTemplate("shoppingBasket");
 }
 
 /**
  * Render the product data
- *
- * TODO: Protect against empty/null jsonData (assuming we need to)
  */
-function renderAllProducts(jsonData)
+function renderAllProducts(categories)
 {
-    console.log("Transforming raw data: " + JSON.stringify(jsonData) );
-
-    var categories = convertProductListToCategoryHash(jsonData.products);
-
-    console.log("Got categories: " + JSON.stringify(categories) );
-
     renderTemplate( window.availableProductsTemplate, categories, "availableProducts" );
 }
 
+/**
+ * Render the shopping basket
+ */
+function renderShoppingBasket(shopping)
+{
+    renderTemplate( window.shoppingBasketTemplate, shopping, "shoppingBasket" );
+}
+
+
+/**
+ *
+ * Take the received data and process it.  The call the render functions
+ *
+ * TODO: Protect against empty/null jsonData
+ */
+function updateAvailableProductsFromJsonData(jsonData)
+{
+    console.log("Received raw JSON data: " + JSON.stringify(jsonData) );
+    var categories = convertProductListToCategoryHash(jsonData.products);
+
+    setCurrentAvailableProducts(categories);
+    createEmptyShoppingBasket();
+
+    renderAllProducts(categories);
+    renderShoppingBasket(getCurrentShoppingBasket());
+}
 
 /**
  * A customer has been entered and we need to retrieve the relevant data
@@ -86,7 +106,7 @@ function customerButtonClicked()
 
     $.getJSON(getProductsUrl(), "", function(jsonData) {
             console.log('Got product data, rendering ...');
-            renderAllProducts(jsonData);
+            updateAvailableProductsFromJsonData(jsonData);
     });
 }
 
@@ -99,6 +119,9 @@ function customerButtonClicked()
 function availableProductClicked(productId, categoryId)
 {
    console.log("Available product clicked: " + productId + " in category: " + categoryId);
+
+   addProductToShoppingBasket(categoryId, productId);
+   renderShoppingBasket(getCurrentShoppingBasket());
 }
 
 /**

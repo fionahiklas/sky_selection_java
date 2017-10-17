@@ -1,0 +1,94 @@
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>Sky Selection Tests</title>
+
+    <link rel="stylesheet" href="qunit-2.4.0.css"/>
+    <script src="qunit-2.4.0.js"></script>
+
+    <script src="/js/jquery-3.2.1.js"></script>
+
+    <!-- Note that this MUST go before the QUnit code otherwise it doesn't seem to get picked up -->
+    <script src="/js/skyshoppingbasket.js"></script>
+
+    <script>
+        var testAvailableProducts =
+            {
+                categories: {
+
+                    cat5: {
+                        id: "cat5",
+                        name: "Category 5",
+                        products: {
+                            ethernet1: {
+                                id: "ethernet1",
+                                name: "Ethernet 1"
+                            }
+                        }
+                    }
+                }
+
+            };
+
+        Object.freeze(testAvailableProducts);
+
+        QUnit.test("Get current empty shopping basket", function(assert){
+
+            // Make sure that the object is empty
+            createEmptyShoppingBasket();
+
+            var result = getCurrentShoppingBasket();
+            assert.ok ( result!= null , "Check for null return value");
+            assert.ok ( result.products != null , "Check for null products");
+            assert.ok ( Object.keys( result.products ).length == 0 );
+        });
+
+        QUnit.test("Check available products is stored", function(assert){
+
+            setCurrentAvailableProducts(null);
+
+            assert.ok( getCurrentAvailableProducts() == null, "Check initially null");
+
+            setCurrentAvailableProducts(testAvailableProducts);
+
+            assert.ok( getCurrentAvailableProducts() == testAvailableProducts, "Check now set to test available products" );
+        });
+
+        QUnit.test("Add item to the shopping basket and check ids", function(assert){
+            createEmptyShoppingBasket();
+
+            setCurrentAvailableProducts(testAvailableProducts);
+
+            addProductToShoppingBasket("cat5", "ethernet1");
+            var result = getCurrentShoppingBasket();
+            var product = result.products["ethernet1"];
+
+            assert.ok( product != null, "Check product exists in shopping basket" );
+            assert.ok( product.productId == "ethernet1", "Check product id" );
+            assert.ok( product.categoryId == "cat5", "Check category id" );
+        });
+
+        QUnit.test("Add item to the shopping basket and check names", function(assert){
+            createEmptyShoppingBasket();
+
+            setCurrentAvailableProducts(testAvailableProducts);
+
+            addProductToShoppingBasket("cat5", "ethernet1");
+            var result = getCurrentShoppingBasket();
+            var product = result.products["ethernet1"];
+
+            assert.ok( product != null, "Check product exists in shopping basket" );
+            assert.ok( product.productName == "Ethernet 1", "Check product name" );
+            assert.ok( product.categoryName == "Category 5", "Check category name" );
+        });
+
+    </script>
+</head>
+
+<body>
+
+<div id="qunit"></div>
+
+</body>
+</html>
