@@ -113,6 +113,8 @@ function customerButtonClicked()
 /**
  * Called when a product check box is clicked
  *
+ * TODO: Arrange for the category checkbox to be ticked/unticked
+ *
  * @param productId
  * @param categoryId
  */

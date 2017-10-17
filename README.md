@@ -2,9 +2,48 @@
 
 Implementation of the Sky programming task
 
+## Quick Start 
+
+Install the prerequisites listed below and run the following command
+
+```
+mvn clean install exec:java
+```
+
+In a browser navigate to the following URL
+
+```
+http://localhost:4567
+```
+
+There are two test customer ID's
+
+* vimes - for the London location 
+* aching - for Liverpool
+
+Enter one of these into the text box and press submit
+
+You can now tick/un-tick products
+
+## TODO
+
+* Some of the work in organising the products and categories that the front-end does should be in the backend
+* The models for data in the shopping basket needs a bit more thought
+* There needs to be a "Purchase" button or something similar
+* The whole "screen" for selecting products needs to be grouped as one so it can be removed/created
+* In a real system the shopping basket would likely be at the top of the page and persist across several screens
+* Need a way to persist data/state across page re-load (maybe local storage)
+* Way better to use something like Angular for the UI!
+* There is no sorting of products in the list or shopping basket, this means things look messy
+* A polished UI would have smoother transitions 
+* Ideally the Catalogue and Location services wouldn't be in this repo, they would be plugins
+* More thought needed on packaging the JavaScript files - really should use require
+* Really should be using bower or similar for JavaScript dependencies
+
+
 ## Getting Started
 
-### Pre-requisites
+### Prerequisite
 
 * Java JDK 1.8
 * Maven 3.5.0 (or greater)
