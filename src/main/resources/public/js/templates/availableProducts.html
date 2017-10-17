@@ -2,11 +2,11 @@
 
     {{#each categories}}
     <div class="category">
-        <h3>{{@key}}</h3>
+        <h3>{{name}}</h3>
 
         <ul>
-        {{#each @key}}
-           <li><h4>{{ this.name }}</h4></li>
+        {{#each products}}
+           <li><h4>{{ name }}</h4></li>
         {{/each}}
         </ul>
     </div>

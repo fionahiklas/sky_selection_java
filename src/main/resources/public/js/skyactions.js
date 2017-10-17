@@ -64,15 +64,11 @@ function renderAllProducts(jsonData)
 {
     console.log("Transforming raw data: " + JSON.stringify(jsonData) );
 
-    categoriesHash = convertProductListToCategoryHash(jsonData.products);
+    var categories = convertProductListToCategoryHash(jsonData.products);
 
-    console.log("Got categories hash: " + JSON.stringify(categoriesHash) );
+    console.log("Got categories: " + JSON.stringify(categories) );
 
-    categoriesObject = categoriesOfCategories( categoriesHash );
-
-    console.log("Passing data to render with: " + JSON.stringify(categoriesObject) );
-
-    renderTemplate( window.availableProductsTemplate, categoriesObject, "availableProducts" );
+    renderTemplate( window.availableProductsTemplate, categories, "availableProducts" );
 }
 
 
@@ -83,7 +79,7 @@ function customerButtonClicked()
 {
     console.log("Customer button clicked");
 
-    customerIDValue = $("#customerIDinput").val();
+    var customerIDValue = $("#customerIDinput").val();
     window.Cookies.set( "customerID", customerIDValue );
 
     console.log("Getting product data for customer: " + customerIDValue);
